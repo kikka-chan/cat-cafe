@@ -9,5 +9,11 @@ class Blog extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title','body'];
+    protected $fillable = ['title','image','body'];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
 }
