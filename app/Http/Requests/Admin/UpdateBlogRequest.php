@@ -22,6 +22,7 @@ class UpdateBlogRequest extends FormRequest
     public function rules()
     {
         return [
+            'category_id' => ['required','exists:categories,id'],//カテゴリー項目は必須。requiredを設定。existsは存在するか？を検証　
             'title' => ['required', 'max:255'],
             'image' => [
                 'nullable',//省略可
