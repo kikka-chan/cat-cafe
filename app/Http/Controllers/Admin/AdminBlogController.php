@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreBlogRequest;
 use App\Http\Requests\Admin\UpdateBlogRequest;
 use App\Models\Blog;
+use App\Models\Cat;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -68,6 +69,7 @@ class AdminBlogController extends Controller
             $updateData['image']=$request->file('image')->store('blogs','public');
         }
         $blog->category()->associate($updateData['category_id']);//更新処理
+        $blog->cats()->sync($updateData['cats']);//リレーションデータ更新
         $blog->update($updateData);
         //リダイレクト
         return to_route('admin.blogs.index')->with('success','ブログを更新しました');
