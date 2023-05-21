@@ -35,3 +35,4 @@ Route::delete('/admin/blogs/{blog}',[AdminBlogController::class,'destroy'])->nam
 
 //ユーザ管理
 Route::get('/admin/users/create',[UserController::class,'create'])->name('admin.users.create');
+Route::post('/admin/users/create',[UserController::class,'store'])->name('admin.users.store');

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\StoreUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -22,12 +24,17 @@ class UserController extends Controller
         return view('admin.users.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    //ユーザ登録処理
+    public function store(StoreUserRequest $request)
     {
-        //
+        //バリデーション済みのデータ取得
+        $validated = $request->validated();
+        //IMAGEカラムにはアップロードしたファイルのパス、パスワードカラムにはハッシュ化したパスワードを設定し、CREATEメソッドでDBに登録
+        $validated['image'] = $request->file('image')->store('users','public');
+        $validated['password'] = Hash::make($validated['password']);
+        User::create($validated);
+        //リダイレクト
+        return back()->with('success','ユーザ登録しました');
     }
 
     /**
