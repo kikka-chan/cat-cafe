@@ -90,7 +90,8 @@
                         <span>設定</span>
                     </a>
 
-                    <form>
+                    <form action="{{route('admin.logout')}}" method="POST">
+                        @csrf
                         <button type="submit" class="w-full flex items-center pl-3 py-3 pr-2 text-gray-50 hover:bg-gray-900 rounded">
               <span class="inline-block mr-4">
                 <svg class="text-gray-600 w-5 h-5" viewbox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -109,10 +110,11 @@
         <!-- ▼▼▼▼共通ヘッダー(PC)▼▼▼▼　-->
         <section class="py-5 px-6 bg-white shadow hidden lg:block">
             <div class="flex items-center justify-end">
-                <span class="text-sm text-gray-500">店長</span>
-                <img class="ml-3 w-10 h-10 rounded-full object-cover object-right" src="/images/placeholders/admin/user.jpg" alt="">
+                <span class="text-sm text-gray-500">{{ \Illuminate\Support\Facades\Auth::user()->name}}</span>
+                <img class="ml-3 w-10 h-10 rounded-full object-cover object-right" src="{{ asset('storage/'. \Illuminate\Support\Facades\Auth::user()->image) }}" alt="">
             </div>
         </section>
+
         <!-- ▲▲▲▲共通ヘッダー(PC)▲▲▲▲　-->
 
         <main class="py-4 px-6">

@@ -40,4 +40,15 @@ class AuthController extends Controller
             'email' => 'メールアドレスまたはパスワードが正しくありません',
         ])->onlyInput('email');
     }
+    public function logout(Request $request)
+    {
+        // ログアウト処理
+        Auth::logout();
+        // 現在使っているセッションを無効化(セキュリティ対策のため)
+        $request->session()->invalidate();
+        // セッションを無効化を再生成(セキュリティ対策のため)
+        $request->session()->regenerateToken();
+        //ログインページにリダイレクト
+        return redirect()->route('admin.login');
+    }
 }
